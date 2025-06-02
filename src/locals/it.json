@@ -1,0 +1,47 @@
+{
+    "home.features.items": [
+        "Analisi tecniche avanzate con 50+ indicatori",
+        "Backtesting automatico delle strategie",
+        "Alert personalizzabili per ogni asset",
+        "Reportistica professionale scaricabile"
+      ],
+    "home": {
+      "hero": {
+        "title": "Rivoluziona il tuo modo di investire",
+        "subtitle": "La piattaforma di simulazione finanziaria più avanzata, progettata per darti un vantaggio competitivo reale",
+        "cta_primary": "Inizia Ora Gratis",
+        "cta_secondary": "Guarda il Video"
+      },
+      "stats": {
+        "users": "Utenti Attivi",
+        "satisfaction": "Soddisfazione",
+        "simulations": "Simulazioni",
+        "support": "Supporto"
+      },
+      "features": {
+        "title": "Esperienza Immersiva",
+        "subtitle": "Scopri strumenti professionali in un ambiente intuitivo e coinvolgente",
+        "dashboard_title": "Dashboard Intelligente",
+        "dashboard_desc": "Una console unificata che ti offre tutte le informazioni di cui hai bisogno in tempo reale, con visualizzazioni personalizzabili e alert intelligenti",
+        "items": [
+          "Analisi tecniche avanzate con 50+ indicatori",
+          "Backtesting automatico delle strategie",
+          "Alert personalizzabili per ogni asset",
+          "Reportistica professionale scaricabile"
+        ]
+      },
+      "market": {
+        "title": "Dati di Mercato in Tempo Reale",
+        "cta": "Esplora i Mercati"
+      },
+      "testimonials": {
+        "title": "Cosa dicono gli esperti",
+        "subtitle": "La comunità finanziaria sta già vivendo il futuro degli investimenti"
+      },
+      "cta": {
+        "title": "Pronto a rivoluzionare i tuoi investimenti?",
+        "subtitle": "Unisciti a migliaia di investitori che già utilizzano la nostra piattaforma per prendere decisioni più informate",
+        "button": "Registrati Ora - 14 Giorni Gratis"
+      }
+    }
+  }

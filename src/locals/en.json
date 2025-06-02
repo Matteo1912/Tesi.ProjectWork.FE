@@ -1,0 +1,41 @@
+{
+    "home": {
+      "hero": {
+        "title": "Revolutionize your way of investing",
+        "subtitle": "The most advanced financial simulation platform, designed to give you a real competitive advantage",
+        "cta_primary": "Start Now Free",
+        "cta_secondary": "Watch Video"
+      },
+      "stats": {
+        "users": "Active Users",
+        "satisfaction": "Satisfaction",
+        "simulations": "Simulations",
+        "support": "Support"
+      },
+      "features": {
+        "title": "Immersive Experience",
+        "subtitle": "Discover professional tools in an intuitive and engaging environment",
+        "dashboard_title": "Smart Dashboard",
+        "dashboard_desc": "A unified console that gives you all the information you need in real time, with customizable views and intelligent alerts",
+        "items": [
+          "Advanced technical analysis with 50+ indicators",
+          "Automatic strategy backtesting",
+          "Custom alerts for each asset",
+          "Downloadable professional reports"
+        ]
+      },
+      "market": {
+        "title": "Real-time Market Data",
+        "cta": "Explore Markets"
+      },
+      "testimonials": {
+        "title": "What experts say",
+        "subtitle": "The financial community is already experiencing the future of investing"
+      },
+      "cta": {
+        "title": "Ready to revolutionize your investments?",
+        "subtitle": "Join thousands of investors already using our platform to make more informed decisions",
+        "button": "Register Now - 14 Days Free"
+      }
+    }
+  }
