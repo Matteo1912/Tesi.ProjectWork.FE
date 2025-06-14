@@ -36,12 +36,21 @@
             </div>
             <div>
               <p class="text-sm text-gray-500">Tipo rendimento</p>
-              <p class="font-medium">{{ sim.usaMediaStorica ? 'Media storica' : 'Personalizzato (' + sim.rendimentoPersonalizzato + '%)' }}</p>
+              <p class="font-medium">{{ sim.usaMediaStorica ? 'Media storica' : 'Personalizzato (' + (sim.rendimentoPersonalizzato || 0) + '%)' }}</p>
             </div>
-            <div class="flex items-end justify-end">
+            <div class="flex items-end justify-end space-x-2">
               <button @click="loadSimulation(sim)"
                       class="bg-burgundy-600 hover:bg-burgundy-700 text-white font-medium py-2 px-4 rounded-lg text-sm">
-                Carica questa simulazione
+                Carica
+              </button>
+              <button @click="deleteSimulation(sim.id)"
+                      class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg text-sm"
+                      :disabled="isDeleting === sim.id">
+                <span v-if="isDeleting !== sim.id">Elimina</span>
+                <svg v-else class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
               </button>
             </div>
           </div>
@@ -52,19 +61,29 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { ref, watch } from 'vue'
+import simulationService from '@/services/simulationService'
 
 export default {
   props: {
     show: Boolean,
-    savedSimulations: Array
+    savedSimulations: {
+      type: Array,
+      default: () => []
+    }
   },
   
-  emits: ['close', 'load-simulation'],
+  emits: ['close', 'load-simulation', 'simulation-deleted'],
   
   setup(props, { emit }) {
-    const simulations = computed(() => props.savedSimulations)
-    
+    const isDeleting = ref(null)
+    const simulations = ref([...props.savedSimulations])
+
+    // Aggiorna le simulazioni quando cambia la prop
+    watch(() => props.savedSimulations, (newVal) => {
+      simulations.value = [...newVal]
+    })
+
     const close = () => {
       emit('close')
     }
@@ -73,14 +92,49 @@ export default {
       emit('load-simulation', simulation)
     }
     
+    const deleteSimulation = async (simulationId) => {
+        if (!confirm('Sei sicuro di voler eliminare questa simulazione?')) {
+            return
+        }
+        
+        isDeleting.value = simulationId
+        try {
+            await simulationService.deleteSimulation(simulationId)
+            
+            // 1. Crea un nuovo array invece di modificare quello esistente
+            const updatedSimulations = simulations.value.filter(sim => sim.id !== simulationId)
+            
+            // 2. Assegna il nuovo array per forzare la reattività
+            simulations.value = updatedSimulations
+            
+            // 3. Notifica il componente padre
+            emit('simulation-deleted', simulationId)
+            loadSimulation()
+            alert('Simulazione eliminata correttamente')
+            
+        } catch (error) {
+            console.error('Errore eliminazione:', error)
+            alert('Errore durante l\'eliminazione: ' + (error.response?.data?.message || error.message))
+        } finally {
+            isDeleting.value = null
+        }
+    }
+    
     const formatCurrency = (value) => {
-      return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(value)
+      return new Intl.NumberFormat('it-IT', { 
+        style: 'currency', 
+        currency: 'EUR',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value)
     }
     
     return {
       simulations,
+      isDeleting,
       close,
       loadSimulation,
+      deleteSimulation,
       formatCurrency
     }
   }

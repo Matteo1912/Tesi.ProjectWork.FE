@@ -31,6 +31,16 @@ export default {
     }
   },
 
+  async deleteSimulation(simulationId) {
+    try {
+        const response = await api.delete(`/investimenti/elimina-simulazione/${simulationId}`)
+        return response.data
+    } catch (error) {
+        console.error('Error deleting simulation:', error)
+        throw error
+    }
+  },
+
   async getSavedSimulations() {
     try {
       const response = await api.get('/investimenti/simulazioni')

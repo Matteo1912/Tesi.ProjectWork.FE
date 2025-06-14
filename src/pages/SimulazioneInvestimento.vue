@@ -11,11 +11,12 @@
 
     <!-- Modale Simulazioni Salvate -->
     <SavedSimulationsModal
-      :show="showSavedSimulationsModal"
-      :saved-simulations="savedSimulations"
-      @close="showSavedSimulationsModal = false"
-      @load-simulation="loadSavedSimulation"
-    />
+  :show="showSavedSimulationsModal"
+  :saved-simulations="savedSimulations"
+  @close="showSavedSimulationsModal = false"
+  @load-simulation="loadSavedSimulation"
+  @simulation-deleted="handleSimulationDeleted"
+/>
 
     <!-- Contenuto principale -->
     <div class="container mx-auto px-6">
@@ -228,7 +229,12 @@ export default {
         isSaving.value = false
       }
     }
-
+    const handleSimulationDeleted = (simulationId) => {
+      // Aggiorna la lista delle simulazioni salvate
+      savedSimulations.value = savedSimulations.value.filter(
+        sim => sim.idSimulazione !== simulationId
+      )
+    }
     const fetchSavedSimulations = async () => {
       try {
         const response = await simulationService.getSavedSimulations()
@@ -277,7 +283,8 @@ export default {
       simulationResult,
       savedSimulations,
       showSavedSimulationsModal,
-      
+      handleSimulationDeleted,
+
       // Funzioni simulazioni
       updateIndexInfo,
       runSimulation,

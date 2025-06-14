@@ -1,37 +1,25 @@
 import api from './apiService'
 
 export default {
-  async login(email, password) {
-    try {
-      const response = await api.get(
-        `/user/GetTokenUser?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
-      )
-      return response.data
-    } catch (error) {
-      throw error.response?.data || error.message
-    }
-  },
-
-  async register(userData) {
-    try {
-      const response = await api.post('/user/Registrazione', userData)
-      return response.data
-    } catch (error) {
-      throw error.response?.data || error.message
-    }
-  },
-
-  logout() {
-    api.removeAuthHeader()
-    localStorage.removeItem('authToken')
-  },
-
-  setAuthToken(token) {
-    localStorage.setItem('authToken', token)
-    api.setAuthHeader(token)
-  },
-
+  // ... altre funzioni esistenti ...
+  
   getAuthToken() {
     return localStorage.getItem('authToken')
+  },
+
+  isAuthenticated() {
+    return !!this.getAuthToken()
+  },
+
+  checkTokenExpiration() {
+    const token = this.getAuthToken()
+    if (!token) return false
+    
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      return payload.exp * 1000 > Date.now()
+    } catch (e) {
+      return false
+    }
   }
 }

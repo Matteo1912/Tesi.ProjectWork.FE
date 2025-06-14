@@ -4,13 +4,13 @@
       <div class="flex items-center space-x-4">
         <a href="/" class="flex items-center space-x-3 group" @click.prevent="navigate('/')">
           <div class="relative">
-            <img src="@/assets/svg/logo.svg" alt="Logo" 
+            <img src="@/assets/svg/logo.png" alt="Logo" 
                  class="w-12 h-12 transition-all duration-500 group-hover:rotate-12" />
             <div class="absolute -inset-1 bg-red-100 rounded-full opacity-0 group-hover:opacity-100 
                         blur-sm transition-opacity duration-300"></div>
           </div>
-          <span class="text-2xl font-extrabold bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
-            InvestSim
+          <span class="text-xl font-extrabold bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+            Coppola Matteo
           </span>
         </a>
       </div>
